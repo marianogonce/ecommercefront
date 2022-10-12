@@ -42,11 +42,20 @@
     width: 45px;
     height: 45px;
     margin: 20px;
-    padding-top: 3px;
     background-color: rgb(195, 195, 195);
     text-align: center;
   }
 
+  .button {
+    border-radius: 0%;
+    background-color: rgb(95, 58, 58);
+    color: white;
+    margin-left: 19px;
+  }
+
+  input {
+    margin-left: 19px;
+  }
 
   .square:hover {
     background-color: rgb(230, 230, 230);
@@ -104,4 +113,15 @@ h3 {
 
 #codigo {
   color: rgb(159, 159, 159);
+}
+
+h4 {
+  font-weight: bold;
+  color : rgb(128, 127, 127);
+  display: block;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.detalles {
+  margin-top: 14px;
 }

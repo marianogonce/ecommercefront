@@ -32,6 +32,24 @@
             <div class="square"><p id="talla">{{talla.codigo_talla}}</p></div>
         </ng-container>
       </div>
-        <button>Agregar al Carrito</button>
+      <div class="field">
+        <label class="label">Unidades</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Text input">
+        </div>
+        <p class="help">Cantidad del producto</p>
+      </div>
+      <button class="button">Agregar al Carrito</button>
     </aside>
+    </div>
+    <div class="detalles">
+        <h4 >DETALLE DEL PRODUCTO</h4>
+        <hr>
+        <p>{{calzado.detalle}}</p>
+    </div>
+    <br>
+    <div class="detalles">
+        <h4 >DETALLE DE LA TECNOLOGÍA</h4>
+        <hr>
+        <p>{{calzado.tecnologia.descripcion}}</p>
     </div>
