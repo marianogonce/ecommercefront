@@ -8,6 +8,6 @@ import { url } from '../url';
 })
 export class CalzadoServiceService extends DataService {
   constructor(http: HttpClient) {
-    super(url + 'softskills', http);
+    super(url + '/api/calzados', http);
   }
 }

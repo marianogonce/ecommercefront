@@ -1,0 +1,37 @@
+<div class="flex-container">
+ <div class="flex-item-left">
+    <header> <p id="tituloSeccion">Hushpuppiesco/Calzado {{calzado.nombre}}</p></header>
+    <article><figure >
+        <img  id="fotoPrincipal" [src]="urlFotoPrincipal">
+    </figure></article>
+        <hr>
+        <div class="container">
+        <ng-container  *ngFor="let foto of calzado.fotos" class="container">
+            <figure class="image is-128x128" >
+            <img (click)="cambiarFoto(foto.foto_url)" class="miniatura" [src]="foto.foto_url">
+            </figure>
+        </ng-container>
+      </div>
+</div>
+
+    <aside class="flex-item-right">
+        <h1>{{calzado.nombre}}</h1>
+        <h2>{{calzado.precio}}</h2>
+        <p id="codigo">Cod. Producto {{calzado.codigo_producto}}</p>
+        <h3>COLOR</h3>
+        <div class="container">
+        <ng-container  *ngFor="let color of calzado.colores" class="container">
+            <figure class="image is-128x128" >
+            <img (click)="cambiarFoto(color.foto_miniatura_url)" class="miniatura" [src]="color.foto_miniatura_url">
+            </figure>
+        </ng-container>
+      </div>
+        <h3>TALLA</h3>
+        <div class="container">
+        <ng-container  *ngFor="let talla of calzado.tallas" class="container">
+            <div class="square"><p id="talla">{{talla.codigo_talla}}</p></div>
+        </ng-container>
+      </div>
+        <button>Agregar al Carrito</button>
+    </aside>
+    </div>

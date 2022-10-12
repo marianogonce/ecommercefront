@@ -7,10 +7,22 @@ import { SuscriptorServiceService } from './services/suscriptorService/suscripto
 import { ItemCarritoServiceService } from './services/itemCarritoService/item-carrito-service.service';
 import { CalzadoServiceService } from './services/calzadoService/calzado-service.service';
 import { HttpClientModule } from '@angular/common/http';
+import { CalzadoDetailsComponent } from './components/calzado-details/calzado-details.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  declarations: [AppComponent, NavbarComponent, CalzadoDetailsComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    RouterModule.forRoot([
+      {
+        path: 'calzado/:codigoCalzado',
+        component: CalzadoDetailsComponent,
+      },
+    ]),
+  ],
   providers: [
     SuscriptorServiceService,
     ItemCarritoServiceService,
