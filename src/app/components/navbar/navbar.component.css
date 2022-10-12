@@ -1,0 +1,53 @@
+#ofertas {
+    width: 100%;
+    height: 30px;
+    background-color: #964e4e;
+}
+
+#oferta{
+  color: white;
+  text-align: center; 
+  font-weight: bold;
+  font-size: medium;
+  vertical-align: bottom;
+}
+
+#LogoYBuscador {
+  height: auto;
+}
+
+#miCuenta {
+    width: 100%;
+    height: 20px;
+    background-color: #d6d6d6;
+}
+
+#imagen {
+    background: url(https://i.imgur.com/GQkEoXA.png) no-repeat center center;
+    background-size:contain;
+    width: 300px;
+    height: 100px;
+    display: inline-block;
+  }
+
+  #lineaNegra {
+    background-color: black;
+    height: 1px;
+  }
+
+  form {
+    display: block;
+    float: right;
+    width: 300px;
+    padding: 20px;
+    padding-bottom: 5px;
+  }
+
+  #textoDebajoDelForm{
+    position: relative;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+
+  input[type=text]:focus {
+    border: 3px solid #555;
+  }
