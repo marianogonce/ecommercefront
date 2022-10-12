@@ -3,6 +3,10 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { CalzadoServiceService } from 'src/app/services/calzadoService/calzado-service.service';
 import { formatterPeso } from '../utils/formatoPeso';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ItemCarritoServiceService } from 'src/app/services/itemCarritoService/item-carrito-service.service';
+import { openSnackBar } from '../utils/OpenSnackbarfunction';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-calzado-details',
@@ -10,23 +14,77 @@ import { formatterPeso } from '../utils/formatoPeso';
   styleUrls: ['./calzado-details.component.css'],
 })
 export class CalzadoDetailsComponent implements OnInit {
+  public myForm!: FormGroup;
+
   public codigoCalzadoSeleccionado: any;
   public calzado: any;
   public calzadosArray: any;
   public PageLoading: string = 'visible';
-  public urlFotoPrincipal!: string;
+
+  public tallaSeleccionada: any = '';
+  public colorSeleccionado: any = '';
+  public cantidad: Number = 0;
+
+  public precioEnPesos: string = '';
 
   constructor(
     private route: ActivatedRoute,
     public router: Router,
-    private calzadoService: CalzadoServiceService
+    private calzadoService: CalzadoServiceService,
+    private itemCarritoService: ItemCarritoServiceService,
+    private _snackBar: MatSnackBar
   ) {}
 
-  cambiarFoto(url: string) {
-    this.urlFotoPrincipal = url;
+  elegirTalla(talla: any) {
+    this.tallaSeleccionada = talla;
+  }
+
+  onSubmit(form: FormGroup) {
+    if (this.myForm.valid && this.tallaSeleccionada != '') {
+      console.log({
+        calzado: this.calzado,
+        color: this.colorSeleccionado.color,
+        talla: this.tallaSeleccionada,
+        cantidad: parseInt(this.myForm.get('cantidad')!.value),
+      });
+      this.calzado.cantidad_ventas = parseInt(this.calzado.cantidad_ventas);
+      this.itemCarritoService
+        .create({
+          calzado: this.calzado,
+          color: this.colorSeleccionado.color,
+          talla: this.tallaSeleccionada,
+          cantidad: parseInt(this.myForm.get('cantidad')!.value),
+        })
+        .subscribe({
+          next: (response) => {
+            openSnackBar(
+              this._snackBar,
+              'Producto Agregado al Carrito : ' + this.calzado.codigo_producto,
+              'green-snackbar',
+              'x'
+            );
+            this.myForm.reset();
+            this.myForm.markAsUntouched();
+          },
+          error: (error: any) => {
+            openSnackBar(
+              this._snackBar,
+              `${error?.message}`,
+              'red-snackbar',
+              'x'
+            );
+          },
+        });
+    } else {
+      this.myForm.markAllAsTouched();
+    }
   }
 
   ngOnInit(): void {
+    this.myForm = new FormGroup({
+      cantidad: new FormControl('cantidad', Validators.required),
+    });
+
     this.route.paramMap.subscribe({
       next: (param) => {
         if (param.get('codigoCalzado')) {
@@ -49,8 +107,8 @@ export class CalzadoDetailsComponent implements OnInit {
         if (!this.calzado) {
           this.router.navigate(['/notfound']);
         }
-        this.urlFotoPrincipal = this.calzado.fotos[0].foto_url;
-        this.calzado.precio = formatterPeso.format(this.calzado.precio);
+
+        this.precioEnPesos = formatterPeso.format(this.calzado.precio);
       },
       error: (error: any) => {
         this.router.navigate([

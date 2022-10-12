@@ -1,47 +1,40 @@
 <div class="flex-container">
  <div class="flex-item-left">
     <header> <p id="tituloSeccion">Hushpuppiesco/Calzado {{calzado.nombre}}</p></header>
-    <article><figure >
-        <img  id="fotoPrincipal" [src]="urlFotoPrincipal">
-    </figure></article>
-        <hr>
-        <div class="container">
-        <ng-container  *ngFor="let foto of calzado.fotos" class="container">
-            <figure class="image is-128x128" >
-            <img (click)="cambiarFoto(foto.foto_url)" class="miniatura" [src]="foto.foto_url">
-            </figure>
-        </ng-container>
-      </div>
-</div>
-
+  <app-imagen-calzado
+  [calzado]="calzado"
+  ></app-imagen-calzado>
+  </div>
     <aside class="flex-item-right">
         <h1>{{calzado.nombre}}</h1>
-        <h2>{{calzado.precio}}</h2>
+        <h2>{{precioEnPesos}}</h2>
         <p id="codigo">Cod. Producto {{calzado.codigo_producto}}</p>
         <h3>COLOR</h3>
         <div class="container">
         <ng-container  *ngFor="let color of calzado.colores" class="container">
             <figure class="image is-128x128" >
-            <img (click)="cambiarFoto(color.foto_miniatura_url)" class="miniatura" [src]="color.foto_miniatura_url">
+            <img class="miniatura" [src]="color.foto_miniatura_url">
             </figure>
         </ng-container>
       </div>
         <h3>TALLA</h3>
         <div class="container">
         <ng-container  *ngFor="let talla of calzado.tallas" class="container">
-            <div class="square"><p id="talla">{{talla.codigo_talla}}</p></div>
+            <div (click)="elegirTalla(talla)" class="square"><p id="talla">{{talla.codigo_talla}}</p></div>
         </ng-container>
       </div>
       <div class="field">
         <label class="label">Unidades</label>
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
         <div class="control">
-          <input class="input" type="text" placeholder="Text input">
+          <input formControlName="cantidad" class="input" type="text" placeholder="Ingrese la cantidad">
         </div>
         <p class="help">Cantidad del producto</p>
-      </div>
       <button class="button">Agregar al Carrito</button>
-    </aside>
+    </form>
     </div>
+</aside >
+</div> 
     <div class="detalles">
         <h4 >DETALLE DEL PRODUCTO</h4>
         <hr>
@@ -49,7 +42,13 @@
     </div>
     <br>
     <div class="detalles">
-        <h4 >DETALLE DE LA TECNOLOGÍA</h4>
+        <h4 >DETALLE DE LA TECNOLOGÍA ({{calzado.tecnologia.nombre}})</h4>
         <hr>
         <p>{{calzado.tecnologia.descripcion}}</p>
     </div>
+    <h4>COMPLETA TU LOOK</h4>
+  <div class="containerCard">
+    <ng-container  *ngFor="let calzado of calzadosArray">
+    <app-card-calzado [calzado]="calzado"></app-card-calzado>
+  </ng-container>
+  </div>

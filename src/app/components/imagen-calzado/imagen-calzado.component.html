@@ -1,0 +1,11 @@
+<article><figure >
+    <img  id="fotoPrincipal" [src]="urlFotoPrincipal">
+</figure></article>
+    <hr>
+    <div class="container">
+    <ng-container  *ngFor="let foto of calzado.fotos" class="container">
+        <figure class="image is-128x128" >
+        <img (click)="cambiarFoto(foto.foto_url, null)" class="miniatura" [src]="foto.foto_url">
+        </figure>
+    </ng-container>
+  </div>
